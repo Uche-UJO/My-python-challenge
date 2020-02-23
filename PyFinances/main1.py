@@ -1,6 +1,6 @@
 import os
 import csv
-
+import os.path
 
 list = os.listdir("budget_data.csv")
 number_files = len(list)
