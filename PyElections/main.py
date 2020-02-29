@@ -1,52 +1,69 @@
-#import os and CSV to read file
-import os, os.path
+# First we'll import the os module
+# This will allow us to create file paths across operating systems
+import os
+
+# Module for reading CSV files
 import csv
+
+# Import module operator
 import operator
 
-#with open('election_data.csv') as csv_file:
-    #csv_reader = csv.reader(csv_file)
-
-#list = os.listdir('houston_election_data.csv')
 list = os.listdir('Resources')
 number_files = len(list)
 
-# Grab Election CSV files
 
 for numbers in range(number_files):
-    electioncsv = os.path.join('..', 'Resources','houston_election_data.csv')
-   # Set empty list variables
-    County= []
-    Candidate = []
-    CandidateUnique =[]
-    CVoteCount = []
-    CVotePercent =[]
-    TotalCount = 0
 
-# Open raw data file 1
-    with open(electioncsv,'r') as csvFile:
-        csvReader = csv.reader(csvFile, delimiter=',')
-            #skip headers
-        next(csvReader, None)
+    csvpath = os.path.join('..', 'Resources', 'houston_election_data.csv')
 
-        for row in csvReader: 
-            TotalCount = TotalCount + 1
-            Candidate.append(row[2])
-        for x in set(Candidate):
-            CandidateUnique.append(x)
-            cc = Candidate.count(x)
-            CVoteCount.append(cc)
-            CVotePercent.append(Candidate.count(x)/TotalCount)
-        
-        Winner = CandidateUnique[CVoteCount.index(max(CVoteCount))]
+
+# Method 2: Improved Reading using CSV module
+
+    with open(csvpath, newline='', encoding="utf-8") as csvfile:
+
+    # CSV reader specifies delimiter and variable that holds contents
+        csvreader = csv.reader(csvfile, delimiter=',')
 
     
-    with open('Election_Results_' + str(numbers+1) + '.txt', 'w') as text:
-        text.write("Election Results for file 'houston_election_data_"+str(numbers+1) + ".csv'"+"\n")
-        text.write("----------------------------------------------------------\n")
-        text.write("Total Vote: " + str(TotalCount) + "\n")
-        text.write("----------------------------------------------------------\n")
-        for i in range(len(set(Candidate))):
-            text.write(CandidateUnique[i] + ": " + str(round(CVotePercent[i]*100,1)) +"% (" + str(CVoteCount[i]) + ")\n")
-        text.write("----------------------------------------------------------\n")
-        text.write("Winner: " + Winner +"\n")
-        text.write("----------------------------------------------------------\n")
+    cand_data = {}
+    for row in csvreader:
+        if row[0] not in cand_data.keys():
+            cand_data[row[0]] = 1
+            
+        else:
+            cand_data[row[0]] += 1
+            
+    cand_data.pop("Candidate")
+    total_votes = (sum(cand_data.values())) 
+    sorted_cand_data = dict( sorted(cand_data.items(), key=operator.itemgetter(1),reverse=True))
+    adv_cand = list(sorted_cand_data.keys())
+
+    f = open("py_elections_results.txt", "w")
+    f.write(
+    f" Houston Mayoral Election Results \n"
+    f"----------------------------------\n"
+    f"Total Cast Votes: {total_votes} \n"
+    f"----------------------------------\n")
+    f.close()
+    
+    for x, y in sorted_cand_data.items():
+        z = round(((y/total_votes)*100),2)
+        f = open("py_elections_results.txt", "a")
+        f.write(f"{x}:  {z}%  ({y}) \n")
+        f.close()
+
+    f = open("py_elections_results.txt", "a")
+    f.write(
+    f"----------------------------------\n"
+    f"1st Advancing Candidate: {adv_cand[0]} \n"
+    f"2nd Advancing Candidate: {adv_cand[1]} \n"
+    f"----------------------------------\n")  
+    f.close()
+
+    f = open("py_elections_results.txt", "r")
+    print(f.read())
+    f.close()
+        
+
+    
+    
