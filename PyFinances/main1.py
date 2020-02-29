@@ -2,12 +2,12 @@ import os
 import csv
 import os.path
 
-list = os.listdir("budget_data.csv")
+list = os.listdir("./raw_data1")
 number_files = len(list)
 
 for numbers in range(number_files):
 
-    budget_csvpath = os.path.join('..', 'PyFinances', "budget_data.csv")
+    budget_csvpath = os.path.join('raw_data1', "budget_data.csv")
 
     #Declare empty list variables
 
@@ -22,7 +22,7 @@ for numbers in range(number_files):
     itemCount = 0
 
 
-    with open(budget_csvpath) as csvfile:
+    with open(budget_csvpath, 'r') as csvfile:
         csvreader = csv.reader(csvfile, delimiter=',')
 
         next(csvreader, None)
