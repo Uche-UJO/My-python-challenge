@@ -6,13 +6,14 @@ import operator
 #with open('election_data.csv') as csv_file:
     #csv_reader = csv.reader(csv_file)
 
-list = os.listdir('houston_election_data.csv')
+#list = os.listdir('houston_election_data.csv')
+list = os.listdir('Resources')
 number_files = len(list)
 
 # Grab Election CSV files
 
 for numbers in range(number_files):
-    electioncsv = os.path.join('houston_election_data.csv')
+    electioncsv = os.path.join('..', 'Resources','houston_election_data.csv')
    # Set empty list variables
     County= []
     Candidate = []
@@ -49,4 +50,3 @@ for numbers in range(number_files):
         text.write("----------------------------------------------------------\n")
         text.write("Winner: " + Winner +"\n")
         text.write("----------------------------------------------------------\n")
-    
