@@ -1,11 +1,10 @@
 # Dependencies
-# Dependencies
+
 import csv
 import os
 
-# Files to load and output (Remember to change these)
-#file_to_load = os.path.join("Resources", "budget_data.csv")
-#file_to_output = os.path.join("Resources", "budget_analysis.txt")
+# Files to load and output
+
 
 file_to_load = os.path.join('..', 'Resources', 'budget_data.csv')
 
