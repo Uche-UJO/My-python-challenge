@@ -1,12 +1,12 @@
 import os
 import csv
-#import os.path
+import os.path
 
-list = os.listdir('Resources')
+list = os.listdir('budget_data.csv')
+#('Resources')
 number_files = len(list)
 
 for numbers in range(number_files):
-
     budget_csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
     #Declare empty list variables
