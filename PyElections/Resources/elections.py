@@ -5,7 +5,7 @@ from pathlib import Path
 # Assign file location with the pathlib library
 #csv_file_path = Path('My-python-challenge', 'PyElections', 'houston_election_data.csv')
 
-csv_file_path = Path('..', 'Resources','houston_election_data.csv')
+csv_file_path = Path('..', 'Resources', 'houston_election_data.csv')
 
 import operator
 
@@ -123,7 +123,7 @@ print(f"----------------------------")
 
 # Output file
 
-output_file = Path("My-python-challenge", "PyElections", "elections_summary.txt")
+output_file = Path('..', 'Resources', 'elections_summary.txt')
 
 with open(output_file,"w") as file:
 
